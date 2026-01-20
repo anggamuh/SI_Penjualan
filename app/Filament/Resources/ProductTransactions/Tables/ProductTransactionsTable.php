@@ -36,7 +36,6 @@ class ProductTransactionsTable
                 ImageColumn::make('proof')
                     ->label('Proof')
                     ->circular()
-                    ->height(40)
                     ->openUrlInNewTab(),
 
                 TextColumn::make('produk.name')
