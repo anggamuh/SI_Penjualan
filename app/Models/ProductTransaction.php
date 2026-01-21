@@ -7,10 +7,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-
 class ProductTransaction extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
         'name',
@@ -31,24 +30,22 @@ class ProductTransaction extends Model
         'proof',
     ];
 
-    public function generateuniqueTrxId(): string
+    public function generateUniqueTrxId(): string
     {
-        $prefix = 'TJH';
         do {
-            $randomString = $prefix . mt_rand(min:10001, max:99999);
-        } while (self::where(column: 'booking_trx_id', Operator: $randomString)->exists());
-        return $randomString;
+            $trxId = 'TRX' . mt_rand(10001, 99999);
+        } while (self::where('booking_trx_id', $trxId)->exists());
+
+        return $trxId;
     }
 
     public function produk(): BelongsTo
     {
-        return $this->belongsTo(related: Produk::class, foreignKey: 'produk_id');
+        return $this->belongsTo(Produk::class, 'produk_id');
     }
 
     public function promoCode(): BelongsTo
     {
-        return $this->belongsTo(related: PromoCode::class, foreignKey: 'promo_code_id');
+        return $this->belongsTo(PromoCode::class, 'promo_code_id');
     }
-
-   
 }

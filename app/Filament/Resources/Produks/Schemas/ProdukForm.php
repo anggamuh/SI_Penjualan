@@ -56,7 +56,7 @@ class ProdukForm
                             ->addActionLabel('Add to sizes'),
 
 
-                        Section::make('Information Tambahan')
+                        Section::make('More Information')
                             ->schema([
                                 Textarea::make('about')
                                     ->required(),
