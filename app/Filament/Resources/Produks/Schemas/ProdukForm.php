@@ -37,6 +37,8 @@ class ProdukForm
 
 
                         Repeater::make('photos')
+                            ->relationship('photos')
+                            ->label('Product Photos')
                             ->schema([
                                 FileUpload::make('photo')
                                     ->image()
@@ -44,7 +46,7 @@ class ProdukForm
                                     ->maxSize(1024)
                                     ->required(),
                             ])
-                            ->addActionLabel('Add to photos'),
+                            ->addActionLabel('Add Photo'),
 
 
                         Repeater::make('sizes')
