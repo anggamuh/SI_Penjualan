@@ -20,8 +20,7 @@ class CategoryForm
                     ->image()
                     ->directory('categories/icons')
                     ->maxSize(1024)
-                    ->required()
-                    ->nullable(),
+                    ->required(),
             ]);
     }
 }
