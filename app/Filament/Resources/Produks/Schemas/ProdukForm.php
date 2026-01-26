@@ -42,6 +42,7 @@ class ProdukForm
                             ->schema([
                                 FileUpload::make('photo')
                                     ->image()
+                                    ->disk('public')
                                     ->directory('produk/photos')
                                     ->maxSize(1024)
                                     ->required(),
@@ -50,12 +51,14 @@ class ProdukForm
 
 
                         Repeater::make('sizes')
+                            ->relationship('sizes')
+                            ->label('Product Sizes')
                             ->schema([
                                 TextInput::make('size')
                                     ->required()
                                     ->numeric(),
                             ])
-                            ->addActionLabel('Add to sizes'),
+                            ->addActionLabel('Add Size'),
 
 
                         Section::make('More Information')

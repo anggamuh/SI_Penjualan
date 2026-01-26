@@ -48,4 +48,19 @@ class ProductTransaction extends Model
     {
         return $this->belongsTo(PromoCode::class, 'promo_code_id');
     }
+    public function produkSize()
+    {
+        return $this->belongsTo(ProdukSize::class);
+    }
+    protected static function booted()
+    {
+        static::created(function (ProductTransaction $transaction) {
+
+            $produk = Produk::find($transaction->produk_id);
+
+            if ($produk) {
+                $produk->decrement('stock', $transaction->quantity);
+            }
+        });
+    }
 }
