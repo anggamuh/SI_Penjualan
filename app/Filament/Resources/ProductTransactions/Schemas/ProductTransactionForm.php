@@ -22,8 +22,6 @@ class ProductTransactionForm
         return $schema->components([
 
             Wizard::make([
-
-                /* ================= STEP 1 ================= */
                 Step::make('Product & Price')
                     ->schema([
 
