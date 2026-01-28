@@ -12,7 +12,9 @@ use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Actions\DeleteAction;
 use Filament\Tables\Filters\TrashedFilter;
+use Filament\Tables\Filters\Filter;
 use Filament\Tables\Table;
+use Filament\Forms\Components\Select;
 
 class ProduksTable
 {
@@ -22,8 +24,6 @@ class ProduksTable
             ->columns([
                 TextColumn::make('name')
                     ->searchable(),
-                // TextColumn::make('slug')
-                //     ->searchable(),
                 ImageColumn::make('thumbnail')
                     ->circular(),
                 TextColumn::make('price')
@@ -53,6 +53,35 @@ class ProduksTable
             ])
             ->filters([
                 TrashedFilter::make(),
+                Filter::make('is_popular')
+                    ->label('Popular Shoes')
+                    ->query(fn ($query) => $query->where('is_popular', true)),
+                Filter::make('category')
+                    ->form([
+                        Select::make('category_id')
+                            ->label('Category')
+                            ->relationship('category', 'name'),
+                    ])
+                    ->query(function ($query, array $data) {
+                        return $query->when(
+                            $data['category_id'] ?? null,
+                            fn ($query, $categoryId) =>
+                            $query->where('category_id', $categoryId)
+                        );
+                    }),
+                Filter::make('brand')
+                    ->form([
+                        Select::make('brand_id')
+                            ->label('Brand')
+                            ->relationship('brand', 'name'),
+                    ])
+                    ->query(function ($query, array $data) {
+                        return $query->when(
+                            $data['brand_id'] ?? null,
+                            fn ($query, $brandId) =>
+                            $query->where('brand_id', $brandId)
+                        );
+                    }),
             ])
             ->recordActions([
                 EditAction::make(),

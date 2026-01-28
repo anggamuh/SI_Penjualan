@@ -22,6 +22,9 @@ class ProductTransactionsTable
     {
         return $table
             ->columns([
+                TextColumn::make('booking_trx_id')
+                    ->label('Booking Trx ID')
+                    ->searchable(),
 
                 ImageColumn::make('produk.thumbnail')
                     ->label('Product')
@@ -31,9 +34,7 @@ class ProductTransactionsTable
                     ->label('Name')
                     ->searchable(),
 
-                TextColumn::make('booking_trx_id')
-                    ->label('Booking Trx ID')
-                    ->searchable(),
+                
 
                 IconColumn::make('is_paid')
                     ->label('Paid')
